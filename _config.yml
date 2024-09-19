@@ -3,13 +3,13 @@ description: "CSP Pages"
 owner_name: Rowan Sutherland
 github_username: rowangs
 github_repo: "rowan_2025" 
-baseurl: "/rowan_2025"
+baseurl: "/student_2025"
 future: true
-remote_theme: jekyll/minima
+remote_theme: pages-themes/cayman@v0.2.0
 minima:
   skin: dark
   social_links:
-    - { platform: github, user_url: "https://github.com/rowans"}
+    - { platform: github, user_url: "https://github.com/rowangs"}
     - { platform: x, user_url: "https://x.com/NighthawkCoding/" }
     - { platform: youtube, user_url: "https://www.youtube.com/@nighthawkcodingsociety2868" } 
 # remote_theme: pages-themes/midnight@v0.2.0
@@ -23,5 +23,4 @@ header_pages:
   - navigation/blog.md
   - navigation/about.md
   - navigation/search.md
-  - navigation/about.md
   - README4YML.md
