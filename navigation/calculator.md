@@ -4,7 +4,7 @@ title: Calculator
 description: Calculator
 permalink: /calculator/
 ---
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">

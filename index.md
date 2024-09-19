@@ -14,7 +14,7 @@ hide: true
 <h1 style= "color:HotPink;">Fitness Regimen</h1>
 
 <div>
-    <img alt= "Working Out" src="/student_2025/images/exercise.jpg" style="max-width: 100%; height: auto;">
+    <img alt= "Working Out" src="/rowan_2025/images/exercise.jpg" style="max-width: 100%; height: auto;">
 </div>
 
 <div>

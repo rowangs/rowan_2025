@@ -3,7 +3,7 @@ description: "CSP Pages"
 owner_name: Rowan Sutherland
 github_username: rowangs
 github_repo: "rowan_2025" 
-baseurl: "/student_2025"
+baseurl: "/rowan_2025"
 future: true
 remote_theme: pages-themes/cayman@v0.2.0
 minima:
