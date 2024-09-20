@@ -8,249 +8,132 @@ permalink: /javascript/project/snake
 toc: true
 comments: false
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        body {
+            background-color: #f8d9ec;
+            text-align: center;
+        }
+        canvas {
+            border: 10px solid #FFFFFF;
+            display: block;
+            margin: 0 auto;
+        }
+        #menu, #gameover, #setting {
+            display: none;
+        }
+    </style>
+</head>
+<body>
 
-<body style="background-color: #f8d9ec;">
-
-{% include nav/home.html %}
-
-Future home of snake game
----
-layout: page
-title: Snake
-description: Snake game
-permalink: /snake/
----
-
-<body style="background-color: #f8d9ec;">
-
-{% include nav/home.html %}
-
-Future home of snake game
-
-<style>
-    body {
-    }
-    .wrap {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    canvas {
-        display: none;
-        border-style: solid;
-        border-width: 10px;
-        border-color: #FFFFFF;
-    }
-    canvas:focus {
-        outline: none;
-    }
-    /* All screens style */
-    #gameover p, #setting p, #menu p {
-        font-size: 20px;
-    }
-    #gameover a, #setting a, #menu a {
-        font-size: 30px;
-        display: block;
-    }
-    #gameover a:hover, #setting a:hover, #menu a:hover {
-        cursor: pointer;
-    }
-    #gameover a:hover::before, #setting a:hover::before, #menu a:hover::before {
-        content: ">";
-        margin-right: 10px;
-    }
-    #menu {
-        display: block;
-    }
-    #gameover {
-        display: none;
-    }
-    #setting {
-        display: none;
-    }
-    #setting input {
-        display: none;
-    }
-    #setting label {
-        cursor: pointer;
-    }
-    #setting input:checked + label {
-        background-color: #FFF;
-        color: #000;
-    }
-</style>
-
-<div class="container">
-    <header class="pb-3 mb-4 border-bottom border-primary text-dark">
-        <p class="fs-4">Snake score: <span id="score_value">0</span></p>
+    <header>
+        <h1>Snake Game</h1>
+        <p>Score: <span id="score_value">0</span></p>
     </header>
-    <div class="container bg-secondary" style="text-align:center;">
-        <!-- Main Menu -->
-        <div id="menu" class="py-4 text-light">
-            <p>Welcome to Snake, press <span style="background-color: #FFFFFF; color: #000000">space</span> to begin</p>
-            <a id="new_game" class="link-alert">new game</a>
-            <a id="setting_menu" class="link-alert">settings</a>
-        </div>
-        <!-- Game Over -->
-        <div id="gameover" class="py-4 text-light">
-            <p>Game Over, press <span style="background-color: #FFFFFF; color: #000000">space</span> to try again</p>
-            <a id="new_game1" class="link-alert">new game</a>
-            <a id="setting_menu1" class="link-alert">settings</a>
-        </div>
-        <!-- Play Screen -->
-        <canvas id="snake" class="wrap" width="320" height="320" tabindex="1"></canvas>
-        <!-- Settings Screen -->
-        <div id="setting" class="py-4 text-light">
-            <p>Settings Screen, press <span style="background-color: #FFFFFF; color: #000000">space</span> to go back to playing</p>
-            <a id="new_game2" class="link-alert">new game</a>
-            <br>
-            <p>Speed:
-                <input id="speed1" type="radio" name="speed" value="120" checked/>
-                <label for="speed1">Slow</label>
-                <input id="speed2" type="radio" name="speed" value="75"/>
-                <label for="speed2">Normal</label>
-                <input id="speed3" type="radio" name="speed" value="35"/>
-                <label for="speed3">Fast</label>
-            </p>
-            <p>Wall:
-                <input id="wallon" type="radio" name="wall" value="1" checked/>
-                <label for="wallon">On</label>
-                <input id="walloff" type="radio" name="wall" value="0"/>
-                <label for="walloff">Off</label>
-            </p>
-        </div>
-    </div>
-</div>
 
-<script>
-    (function() {
-        /* Attributes of Game */
+    <div id="menu">
+        <p>Press space to start</p>
+    </div>
+    
+    <canvas id="snake" width="320" height="320" tabindex="1"></canvas>
+
+    <div id="gameover">
+        <p>Game Over! Press space to try again</p>
+    </div>
+
+    <script>
         const canvas = document.getElementById("snake");
         const ctx = canvas.getContext("2d");
-        const SCREEN_SNAKE = 0;
-        const screen_snake = document.getElementById("snake");
-        const ele_score = document.getElementById("score_value");
-        const speed_setting = document.getElementsByName("speed");
-        const wall_setting = document.getElementsByName("wall");
-        const SCREEN_MENU = -1, SCREEN_GAME_OVER=1, SCREEN_SETTING=2;
-        const screen_menu = document.getElementById("menu");
-        const screen_game_over = document.getElementById("gameover");
-        const screen_setting = document.getElementById("setting");
-        const button_new_game = document.getElementById("new_game");
-        const button_new_game1 = document.getElementById("new_game1");
-        const button_new_game2 = document.getElementById("new_game2");
-        const button_setting_menu = document.getElementById("setting_menu");
-        const button_setting_menu1 = document.getElementById("setting_menu1");
         const BLOCK = 10;
-        let SCREEN = SCREEN_MENU;
-        let snake;
-        let snake_dir;
-        let snake_next_dir;
-        let snake_speed;
-        let food = {x: 0, y: 0};
-        let score;
-        let wall;
+        let snake = [{x: 10, y: 10}];
+        let snake_dir = 1; // right
+        let food = {};
+        let score = 0;
 
-        let showScreen = function(screen_opt) {
-            SCREEN = screen_opt;
-            switch(screen_opt) {
-                case SCREEN_SNAKE:
-                    screen_snake.style.display = "block";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "none";
-                    screen_game_over.style.display = "none";
-                    break;
-                case SCREEN_GAME_OVER:
-                    screen_snake.style.display = "block";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "none";
-                    screen_game_over.style.display = "block";
-                    break;
-                case SCREEN_SETTING:
-                    screen_snake.style.display = "none";
-                    screen_menu.style.display = "none";
-                    screen_setting.style.display = "block";
-                    screen_game_over.style.display = "none";
-                    break;
-            }
+        function startGame() {
+            snake = [{x: 10, y: 10}];
+            snake_dir = 1; // right
+            score = 0;
+            document.getElementById("score_value").innerText = score;
+            placeFood();
+            document.getElementById("menu").style.display = "none";
+            document.getElementById("gameover").style.display = "none";
+            setInterval(mainLoop, 100);
         }
 
-        window.onload = function() {
-            button_new_game.onclick = function() { newGame(); };
-            button_new_game1.onclick = function() { newGame(); };
-            button_new_game2.onclick = function() { newGame(); };
-            button_setting_menu.onclick = function() { showScreen(SCREEN_SETTING); };
-            button_setting_menu1.onclick = function() { showScreen(SCREEN_SETTING); };
-
-            setSnakeSpeed(150);
-            for(let i = 0; i < speed_setting.length; i++) {
-                speed_setting[i].addEventListener("click", function() {
-                    for(let i = 0; i < speed_setting.length; i++) {
-                        if(speed_setting[i].checked) {
-                            setSnakeSpeed(speed_setting[i].value);
-                        }
-                    }
-                });
-            }
-
-            setWall(1);
-            for(let i = 0; i < wall_setting.length; i++) {
-                wall_setting[i].addEventListener("click", function() {
-                    for(let i = 0; i < wall_setting.length; i++) {
-                        if(wall_setting[i].checked) {
-                            setWall(wall_setting[i].value);
-                        }
-                    }
-                });
-            }
-
-            window.addEventListener("keydown", function(evt) {
-                if(evt.code === "Space" && SCREEN !== SCREEN_SNAKE)
-                    newGame();
-            }, true);
+        function placeFood() {
+            food.x = Math.floor(Math.random() * (canvas.width / BLOCK)) * BLOCK;
+            food.y = Math.floor(Math.random() * (canvas.height / BLOCK)) * BLOCK;
         }
 
-        let mainLoop = function() {
-            let _x = snake[0].x;
-            let _y = snake[0].y;
-            snake_dir = snake_next_dir;
+        function mainLoop() {
+            let head = {x: snake[0].x, y: snake[0].y};
 
-            switch(snake_dir) {
-                case 0: _y--; break;
-                case 1: _x++; break;
-                case 2: _y++; break;
-                case 3: _x--; break;
-            }
+            if (snake_dir === 0) head.y -= BLOCK; // up
+            if (snake_dir === 1) head.x += BLOCK; // right
+            if (snake_dir === 2) head.y += BLOCK; // down
+            if (snake_dir === 3) head.x -= BLOCK; // left
 
-            snake.pop();
-            snake.unshift({x: _x, y: _y});
+            snake.unshift(head);
 
-            if(wall === 1) {
-                if (snake[0].x < 0 || snake[0].x === canvas.width / BLOCK || snake[0].y < 0 || snake[0].y === canvas.height / BLOCK) {
-                    showScreen(SCREEN_GAME_OVER);
-                    return;
-                }
+            if (head.x === food.x && head.y === food.y) {
+                score++;
+                document.getElementById("score_value").innerText = score;
+                placeFood();
             } else {
-                for(let i = 0, x = snake.length; i < x; i++) {
-                    if(snake[i].x < 0) {
-                        snake[i].x = snake[i].x + (canvas.width / BLOCK);
-                    }
-                    if(snake[i].x === canvas.width / BLOCK) {
-                        snake[i].x = snake[i].x - (canvas.width / BLOCK);
-                    }
-                    if(snake[i].y < 0) {
-                        snake[i].y = snake[i].y + (canvas.height / BLOCK);
-                    }
-                    if(snake[i].y === canvas.height / BLOCK) {
-                        snake[i].y = snake[i].y - (canvas.height / BLOCK);
-                    }
-                }
+                snake.pop();
             }
 
-            for(let i = 1; i < snake.length; i++) {
-                if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
-                    showScreen(SCREEN_GAME_OVER);
-                    return;
-                }
+            if (checkCollision()) {
+                gameOver();
+                return;
             }
 
-            if(checkBlock(snake[0].x, snake
+            draw();
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'green';
+            snake.forEach(part => ctx.fillRect(part.x, part.y, BLOCK, BLOCK));
+            ctx.fillStyle = 'red'; // strawberry color
+            ctx.fillText("🍓", food.x, food.y + BLOCK); // drawing the strawberry emoji
+        }
+
+        function checkCollision() {
+            const head = snake[0];
+            if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) return true;
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) return true;
+            }
+            return false;
+        }
+
+        function gameOver() {
+            document.getElementById("gameover").style.display = "block";
+            document.getElementById("menu").style.display = "none";
+        }
+
+        window.addEventListener("keydown", function(evt) {
+            if (evt.code === "Space") {
+                if (document.getElementById("menu").style.display === "block") {
+                    startGame();
+                } else {
+                    gameOver();
+                }
+            }
+            if (evt.code === "ArrowUp" && snake_dir !== 2) snake_dir = 0;
+            if (evt.code === "ArrowRight" && snake_dir !== 3) snake_dir = 1;
+            if (evt.code === "ArrowDown" && snake_dir !== 0) snake_dir = 2;
+            if (evt.code === "ArrowLeft" && snake_dir !== 1) snake_dir = 3;
+        });
+
+        document.getElementById("menu").style.display = "block";
+    </script>
+</body>
+</html>
