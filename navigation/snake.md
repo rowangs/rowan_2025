@@ -106,30 +106,25 @@ Future home of snake game
 </div>
 
 <script>
-    (function(){
+    (function() {
         /* Attributes of Game */
-        // Canvas & Context
         const canvas = document.getElementById("snake");
         const ctx = canvas.getContext("2d");
-        // HTML Game IDs
         const SCREEN_SNAKE = 0;
         const screen_snake = document.getElementById("snake");
         const ele_score = document.getElementById("score_value");
         const speed_setting = document.getElementsByName("speed");
         const wall_setting = document.getElementsByName("wall");
-        // HTML Screen IDs (div)
-        const SCREEN_MENU = -1, SCREEN_GAME_OVER = 1, SCREEN_SETTING = 2;
+        const SCREEN_MENU = -1, SCREEN_GAME_OVER=1, SCREEN_SETTING=2;
         const screen_menu = document.getElementById("menu");
         const screen_game_over = document.getElementById("gameover");
         const screen_setting = document.getElementById("setting");
-        // HTML Event IDs (a tags)
         const button_new_game = document.getElementById("new_game");
         const button_new_game1 = document.getElementById("new_game1");
         const button_new_game2 = document.getElementById("new_game2");
         const button_setting_menu = document.getElementById("setting_menu");
         const button_setting_menu1 = document.getElementById("setting_menu1");
-        // Game Control
-        const BLOCK = 10;   // size of block rendering
+        const BLOCK = 10;
         let SCREEN = SCREEN_MENU;
         let snake;
         let snake_dir;
@@ -138,11 +133,10 @@ Future home of snake game
         let food = {x: 0, y: 0};
         let score;
         let wall;
-        
-        /* Display Control */
-        let showScreen = function(screen_opt){
+
+        let showScreen = function(screen_opt) {
             SCREEN = screen_opt;
-            switch(screen_opt){
+            switch(screen_opt) {
                 case SCREEN_SNAKE:
                     screen_snake.style.display = "block";
                     screen_menu.style.display = "none";
@@ -164,13 +158,82 @@ Future home of snake game
             }
         }
 
-        /* Actions and Events  */
-        window.onload = function(){
-            // HTML Events to Functions
-            button_new_game.onclick = function(){newGame();};
-            button_new_game1.onclick = function(){newGame();};
-            button_new_game2.onclick = function(){newGame();};
-            button_setting_menu.onclick = function(){showScreen(SCREEN_SETTING);};
-            button_setting_menu1.onclick = function(){showScreen(SCREEN_SETTING);};
+        window.onload = function() {
+            button_new_game.onclick = function() { newGame(); };
+            button_new_game1.onclick = function() { newGame(); };
+            button_new_game2.onclick = function() { newGame(); };
+            button_setting_menu.onclick = function() { showScreen(SCREEN_SETTING); };
+            button_setting_menu1.onclick = function() { showScreen(SCREEN_SETTING); };
 
-         
+            setSnakeSpeed(150);
+            for(let i = 0; i < speed_setting.length; i++) {
+                speed_setting[i].addEventListener("click", function() {
+                    for(let i = 0; i < speed_setting.length; i++) {
+                        if(speed_setting[i].checked) {
+                            setSnakeSpeed(speed_setting[i].value);
+                        }
+                    }
+                });
+            }
+
+            setWall(1);
+            for(let i = 0; i < wall_setting.length; i++) {
+                wall_setting[i].addEventListener("click", function() {
+                    for(let i = 0; i < wall_setting.length; i++) {
+                        if(wall_setting[i].checked) {
+                            setWall(wall_setting[i].value);
+                        }
+                    }
+                });
+            }
+
+            window.addEventListener("keydown", function(evt) {
+                if(evt.code === "Space" && SCREEN !== SCREEN_SNAKE)
+                    newGame();
+            }, true);
+        }
+
+        let mainLoop = function() {
+            let _x = snake[0].x;
+            let _y = snake[0].y;
+            snake_dir = snake_next_dir;
+
+            switch(snake_dir) {
+                case 0: _y--; break;
+                case 1: _x++; break;
+                case 2: _y++; break;
+                case 3: _x--; break;
+            }
+
+            snake.pop();
+            snake.unshift({x: _x, y: _y});
+
+            if(wall === 1) {
+                if (snake[0].x < 0 || snake[0].x === canvas.width / BLOCK || snake[0].y < 0 || snake[0].y === canvas.height / BLOCK) {
+                    showScreen(SCREEN_GAME_OVER);
+                    return;
+                }
+            } else {
+                for(let i = 0, x = snake.length; i < x; i++) {
+                    if(snake[i].x < 0) {
+                        snake[i].x = snake[i].x + (canvas.width / BLOCK);
+                    }
+                    if(snake[i].x === canvas.width / BLOCK) {
+                        snake[i].x = snake[i].x - (canvas.width / BLOCK);
+                    }
+                    if(snake[i].y < 0) {
+                        snake[i].y = snake[i].y + (canvas.height / BLOCK);
+                    }
+                    if(snake[i].y === canvas.height / BLOCK) {
+                        snake[i].y = snake[i].y - (canvas.height / BLOCK);
+                    }
+                }
+            }
+
+            for(let i = 1; i < snake.length; i++) {
+                if (snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
+                    showScreen(SCREEN_GAME_OVER);
+                    return;
+                }
+            }
+
