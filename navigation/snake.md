@@ -5,12 +5,11 @@ description: Snake game
 permalink: /snake/
 ---
 
-<body style="background-color: #f8d9ec;">
 
 {% include nav/home.html %}
 
 Future home of snake game
-
+<body style="background-color: #f8d9ec;">
 <style>
     body {
     }
