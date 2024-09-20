@@ -14,6 +14,18 @@ comments: false
 {% include nav/home.html %}
 
 Future home of snake game
+---
+layout: page
+title: Snake
+description: Snake game
+permalink: /snake/
+---
+
+<body style="background-color: #f8d9ec;">
+
+{% include nav/home.html %}
+
+Future home of snake game
 
 <style>
     body {
@@ -240,3 +252,5 @@ Future home of snake game
                     return;
                 }
             }
+
+            if(checkBlock(snake[0].x, snake
