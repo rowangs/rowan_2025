@@ -13,7 +13,6 @@ Future home of snake game
 
 <style>
     body {
-        overflow: hidden; /* Prevent scrolling */
     }
     .wrap {
         margin-left: auto;
@@ -109,21 +108,29 @@ Future home of snake game
 <script>
     (function(){
         /* Attributes of Game */
+        // Canvas & Context
         const canvas = document.getElementById("snake");
         const ctx = canvas.getContext("2d");
+        // HTML Game IDs
+        const SCREEN_SNAKE = 0;
+        const screen_snake = document.getElementById("snake");
         const ele_score = document.getElementById("score_value");
         const speed_setting = document.getElementsByName("speed");
         const wall_setting = document.getElementsByName("wall");
+        // HTML Screen IDs (div)
+        const SCREEN_MENU = -1, SCREEN_GAME_OVER = 1, SCREEN_SETTING = 2;
         const screen_menu = document.getElementById("menu");
         const screen_game_over = document.getElementById("gameover");
         const screen_setting = document.getElementById("setting");
+        // HTML Event IDs (a tags)
         const button_new_game = document.getElementById("new_game");
         const button_new_game1 = document.getElementById("new_game1");
         const button_new_game2 = document.getElementById("new_game2");
         const button_setting_menu = document.getElementById("setting_menu");
         const button_setting_menu1 = document.getElementById("setting_menu1");
+        // Game Control
         const BLOCK = 10;   // size of block rendering
-        let SCREEN;
+        let SCREEN = SCREEN_MENU;
         let snake;
         let snake_dir;
         let snake_next_dir;
@@ -131,12 +138,33 @@ Future home of snake game
         let food = {x: 0, y: 0};
         let score;
         let wall;
-
+        
+        /* Display Control */
         let showScreen = function(screen_opt){
             SCREEN = screen_opt;
-            // ... [existing code for showScreen]
+            switch(screen_opt){
+                case SCREEN_SNAKE:
+                    screen_snake.style.display = "block";
+                    screen_menu.style.display = "none";
+                    screen_setting.style.display = "none";
+                    screen_game_over.style.display = "none";
+                    break;
+                case SCREEN_GAME_OVER:
+                    screen_snake.style.display = "block";
+                    screen_menu.style.display = "none";
+                    screen_setting.style.display = "none";
+                    screen_game_over.style.display = "block";
+                    break;
+                case SCREEN_SETTING:
+                    screen_snake.style.display = "none";
+                    screen_menu.style.display = "none";
+                    screen_setting.style.display = "block";
+                    screen_game_over.style.display = "none";
+                    break;
+            }
         }
 
+        /* Actions and Events  */
         window.onload = function(){
             // HTML Events to Functions
             button_new_game.onclick = function(){newGame();};
@@ -145,53 +173,4 @@ Future home of snake game
             button_setting_menu.onclick = function(){showScreen(SCREEN_SETTING);};
             button_setting_menu1.onclick = function(){showScreen(SCREEN_SETTING);};
 
-            // Prevent default action for space and arrow keys
-            window.addEventListener("keydown", function(evt) {
-                if (evt.code === "Space" || evt.code.startsWith("Arrow")) {
-                    evt.preventDefault();
-                }
-                // spacebar detected
-                if(evt.code === "Space" && SCREEN !== SCREEN_SNAKE) {
-                    newGame();
-                }
-            }, true);
-
-            // ... [existing code for speed and wall settings]
-        }
-
-        let activeDot = function(x, y, isFood = false){
-            ctx.fillStyle = isFood ? "transparent" : "#FFFFFF";
-            ctx.fillRect(x * BLOCK, y * BLOCK, BLOCK, BLOCK);
-            if (isFood) {
-                ctx.font = "20px Arial";
-                ctx.fillText("🍓", x * BLOCK, y * BLOCK + BLOCK);
-            }
-        }
-
-        let addFood = function(){
-            food.x = Math.floor(Math.random() * ((canvas.width / BLOCK) - 1));
-            food.y = Math.floor(Math.random() * ((canvas.height / BLOCK) - 1));
-            for(let i = 0; i < snake.length; i++){
-                if(checkBlock(food.x, food.y, snake[i].x, snake[i].y)){
-                    addFood();
-                }
-            }
-        }
-
-        let mainLoop = function(){
-            // ... [existing game logic]
-
-            // Snake eats food checker
-            if(checkBlock(snake[0].x, snake[0].y, food.x, food.y)){
-                snake[snake.length] = {x: snake[0].x, y: snake[0].y};
-                altScore(++score);
-                addFood();
-                activeDot(food.x, food.y, true); // Draw food as emoji
-            }
-
-            // ... [existing game rendering logic]
-        }
-
-        // ... [existing functions for the game]
-    })();
-</script>
+         
