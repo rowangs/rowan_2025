@@ -1,15 +1,20 @@
 ---
-layout: page
-title: Snake
-description: Snake game
-permalink: /snake/
+layout: post
+title: Snake Game
+description: A Javascript Snake game that contains score and preferences.
+categories: [Javascript]
+menu: nav/javascript_project.html
+permalink: /javascript/project/snake
+toc: true
+comments: false
 ---
 
+<body style="background-color: #f8d9ec;">
 
 {% include nav/home.html %}
 
 Future home of snake game
-<body style="background-color: #f8d9ec;">
+
 <style>
     body {
     }
@@ -235,4 +240,3 @@ Future home of snake game
                     return;
                 }
             }
-
