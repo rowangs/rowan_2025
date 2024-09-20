@@ -32,6 +32,14 @@ hide: true
 <div>
 <a href="{{site.baseurl}}/arms/" class="pink-button">Arm Routine</a> <br>
 
+<!-- Button linking to Markdown page -->
+<div>
+<a href="{{site.baseurl}}/github/pages/markdown" class="pink-button">Build a Markdown Page</a> <br>
+</div>
+
+<div>
+<a href="{{site.baseurl}}/github/pages/hacks" class="pink-button">Hacks</a> <br>
+</div>
 
 <style>
 .pink-button {
