@@ -24,7 +24,7 @@ When I go to college I want to do architecture.
 </div>
 
 <script src="https://utteranc.es/client.js"
-        repo="rowangs/rowan_2025"
+        repo="[rowan_2025]"
         issue-term="pathname"
         theme="github-light"
         crossorigin="anonymous"
