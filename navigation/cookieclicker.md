@@ -156,7 +156,7 @@ permalink: /cookieclicker/
        const playAgainButton = document.getElementById("playAgain");
 
        document.addEventListener("click", function (event) {
-           const click-sound = new Audio("click-sound.wav"); // Create a new Audio instance
+           const click-sound = new Audio("{{site.baseurl}}/assets/click-sound.wav"); // Create a new Audio instance
            click-sound.play(); // Play the click sound
            if (event.target.id === "cookie") {
                cookies += cookiesPerClick; // Increment cookies if the cookie was clicked
