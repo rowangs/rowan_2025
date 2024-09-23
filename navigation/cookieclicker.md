@@ -4,8 +4,6 @@ title: Cookie Clicker
 description: Cookie game
 permalink: /cookieclicker/
 ---
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
@@ -22,6 +20,7 @@ permalink: /cookieclicker/
            height: 100vh;
            margin: 0;
            padding: 0;
+
        }
 
 
@@ -154,6 +153,7 @@ permalink: /cookieclicker/
        <div id="youWin">You Win! Cookies are raining down!</div>
        <button id="playAgain" onclick="resetGame()">Play Again</button>
    </div>
+      <audio id="clickSound" src="{{ site.baseurl}}/assets/click-sound.wav"></audio>
 
 
    <script>
@@ -173,6 +173,8 @@ permalink: /cookieclicker/
        const cookieElement = document.getElementById("cookie");
        const youWinElement = document.getElementById("youWin");
        const playAgainButton = document.getElementById("playAgain");
+       clickSound.play();
+
 
 
        cookieElement.addEventListener("click", function () {
