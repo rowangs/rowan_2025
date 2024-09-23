@@ -20,7 +20,9 @@ permalink: /cookieclicker/
            height: 100vh;
            margin: 0;
            padding: 0;
+
        }
+
 
        header {
            width: 100%;
@@ -32,9 +34,11 @@ permalink: /cookieclicker/
            z-index: 1000; /* Ensures the header is on top of other content */
        }
 
+
        body {
            padding-top: 120px; /* Ensure content doesn't overlap with the fixed header */
        }
+
 
        h1 {
            font-family: 'Cookie', cursive;
@@ -45,11 +49,13 @@ permalink: /cookieclicker/
            top: 120px; /* Ensure title is below the header */
        }
 
+
        #gameContainer {
            position: relative;
            text-align: center;
            margin-top: 50px; /* Adjust margin as needed */
        }
+
 
        #cookie {
            width: 150px; /* Adjust the size of the cookie */
@@ -58,15 +64,18 @@ permalink: /cookieclicker/
            transition: transform 0.1s ease;
        }
 
+
        #cookie:active {
            transform: scale(0.9);
        }
+
 
        #score {
            margin-top: 20px;
            font-size: 24px;
            color: #333;
        }
+
 
        #upgrades {
            margin-top: 30px;
@@ -75,6 +84,7 @@ permalink: /cookieclicker/
            justify-content: center;
            gap: 20px;
        }
+
 
        .upgrade {
            background-color: #f1c40f;
@@ -87,9 +97,11 @@ permalink: /cookieclicker/
            width: 200px;
        }
 
+
        .hidden {
            display: none;
        }
+
 
        #youWin {
            font-size: 32px;
@@ -97,6 +109,7 @@ permalink: /cookieclicker/
            margin-top: 50px;
            display: none;
        }
+
 
        #playAgain {
            background-color: #2ecc71;
@@ -113,14 +126,18 @@ permalink: /cookieclicker/
 </head>
 <body>
 
+
    <header>
        <!-- Navigation bar content here -->
    </header>
 
+
    <h1>Cookie Clicker</h1>
    <div id="gameContainer">
+       <!-- Add your cookie image URL here in the 'src' attribute -->
        <img id="cookie" src="https://prettysimplesweet.com/wp-content/uploads/2020/07/Big-Chocolate-Chip-Cookies-150x150.jpg" alt="Cookie">
        <div id="score">Cookies: 0</div>
+
 
        <div id="upgrades">
            <button class="upgrade" onclick="buyUpgrade(10, 1)">+1 Cookie per Click (Cost: 10)</button>
@@ -132,11 +149,11 @@ permalink: /cookieclicker/
            <button class="upgrade" onclick="buyGoldenCookie(3000)">Golden Cookie (Cost: 3000)</button>
        </div>
 
+
        <div id="youWin">You Win! Cookies are raining down!</div>
        <button id="playAgain" onclick="resetGame()">Play Again</button>
    </div>
 
-   <audio id="clickSound" src="click-sound.wav"></audio>
 
    <script>
        let cookies = 0;
@@ -150,20 +167,20 @@ permalink: /cookieclicker/
        ];
        let autoClicker = null;
 
+
        const scoreElement = document.getElementById("score");
        const cookieElement = document.getElementById("cookie");
        const youWinElement = document.getElementById("youWin");
-       const playAgainButton = document.getElementById("playAgain");
+       const playAgainButton = document.getElementById("playAgain");    
 
-       document.addEventListener("click", function (event) {
-           const click-sound = new Audio("click-sound.wav"); // Create a new Audio instance
-           click-sound.play(); // Play the click sound
-           if (event.target.id === "cookie") {
-               cookies += cookiesPerClick; // Increment cookies if the cookie was clicked
-               updateScore();
-               checkWinCondition();
-           }
+
+
+       cookieElement.addEventListener("click", function () {
+           cookies += cookiesPerClick;
+           updateScore();
+           checkWinCondition();
        });
+
 
        function buyUpgrade(cost, increment) {
            if (cookies >= cost) {
@@ -172,6 +189,7 @@ permalink: /cookieclicker/
                updateScore();
            }
        }
+
 
        function buyAutoClicker(cost) {
            if (cookies >= cost && !autoClicker) {
@@ -185,6 +203,7 @@ permalink: /cookieclicker/
            }
        }
 
+
        function buyGoldenCookie(cost) {
            if (cookies >= cost) {
                cookies -= cost;
@@ -193,9 +212,11 @@ permalink: /cookieclicker/
            }
        }
 
+
        function updateScore() {
            scoreElement.textContent = `Cookies: ${cookies}`;
        }
+
 
        function checkWinCondition() {
            if (cookies >= 10000) {
@@ -208,6 +229,7 @@ permalink: /cookieclicker/
                document.body.style.backgroundRepeat = "repeat";
            }
        }
+
 
        function resetGame() {
            cookies = 0;
@@ -222,5 +244,8 @@ permalink: /cookieclicker/
        }
    </script>
 
+
 </body>
 </html>
+
+
