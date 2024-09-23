@@ -155,11 +155,14 @@ permalink: /cookieclicker/
        const youWinElement = document.getElementById("youWin");
        const playAgainButton = document.getElementById("playAgain");
 
-       cookieElement.addEventListener("click", function () {
-           document.getElementById("clickSound").play(); // Play the click sound
-           cookies += cookiesPerClick;
-           updateScore();
-           checkWinCondition();
+       document.addEventListener("click", function (event) {
+           const sound = new Audio("click-sound.wav"); // Create a new Audio instance
+           sound.play(); // Play the click sound
+           if (event.target.id === "cookie") {
+               cookies += cookiesPerClick; // Increment cookies if the cookie was clicked
+               updateScore();
+               checkWinCondition();
+           }
        });
 
        function buyUpgrade(cost, increment) {
