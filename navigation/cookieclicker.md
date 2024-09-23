@@ -63,16 +63,40 @@ permalink: /cookieclicker/
     <div id="score">Score: 0</div>
     <audio id="clickSound" src="{{ site.baseurl}}/assets/click-sound.wav"></audio>
     
-    <script>
-        let score = 0;
-        const cookie = document.getElementById('cookie');
-        const scoreDisplay = document.getElementById('score');
-        const clickSound = document.getElementById('clickSound');
-        cookie.addEventListener('click', function() {
-            score++;
-            scoreDisplay.textContent = 'Score: ' + score;
-            clickSound.play();
-        });
-    </script>
+
 </body>
+ 
+       function buyUpgrade(cost, increment) {
+           if (cookies >= cost) {
+               cookies -= cost;
+               cookiesPerClick += increment;
+               updateScore();
+           }
+       }
+
+
+
+
+       function buyAutoClicker(cost) {
+           if (cookies >= cost && !autoClicker) {
+               cookies -= cost;
+               updateScore();
+               autoClicker = setInterval(() => {
+                   cookies += cookiesPerClick;
+                   updateScore();
+                   checkWinCondition();
+               }, 1000);
+           }
+       }
+
+
+
+
+       function buyGoldenCookie(cost) {
+           if (cookies >= cost) {
+               cookies -= cost;
+               cookiesPerClick *= 2;
+               updateScore();
+           }
+       }
 </html>
