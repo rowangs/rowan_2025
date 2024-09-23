@@ -19,7 +19,6 @@ permalink: /cookieclicker/
             height: 200vh;
             background-color: #F0F0F0;
         }
-        
         #cookie {
             width: 250px; /* Increase the cookie size */
             cursor: pointer;
@@ -38,16 +37,21 @@ permalink: /cookieclicker/
         }
     </style>
 </head>
-
-
 <body>
     <h1>Cookie Clicker</h1>
     <img src="{{ site.baseurl }}/images/cookie.png" alt="Cookie" id="cookie">
     <div id="score">Score: 0</div>
     <audio id="clickSound" src="{{ site.baseurl}}/assets/click-sound.wav"></audio>
-    
-
+    <script>
+        let score = 0;
+        const cookie = document.getElementById('cookie');
+        const scoreDisplay = document.getElementById('score');
+        const clickSound = document.getElementById('clickSound');
+        cookie.addEventListener('click', function() {
+            score++;
+            scoreDisplay.textContent = 'Score: ' + score;
+            clickSound.play();
+        });
+    </script>
 </body>
- 
-
 </html>
