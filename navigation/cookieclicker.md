@@ -39,7 +39,7 @@ permalink: /cookieclicker/
 </head>
 <body>
     <h1>Cookie Clicker</h1>
-    <img src="{{ site.baseurl }}/images/cookie.webp" alt="Cookie" id="cookie">
+    <img src="{{ site.baseurl }}/images/cookie.png" alt="Cookie" id="cookie">
     <div id="score">Score: 0</div>
     <audio id="clickSound" src="{{ site.baseurl}}/assets/click-sound.wav"></audio>
     <script>
