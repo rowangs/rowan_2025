@@ -21,7 +21,7 @@ permalink: /calculator/
         }
         .calculator {
             width: 300px;
-            background-color: #ffffff;
+            background-color: #a7bed3;
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -30,7 +30,7 @@ permalink: /calculator/
             width: 100%;
             height: 50px;
             background-color: #282c34;
-            color: #61dafb;
+            color: #ffcaaf;
             text-align: right;
             font-size: 2em;
             padding: 10px;
@@ -43,7 +43,7 @@ permalink: /calculator/
             gap: 10px;
         }
         .button {
-            background-color: #61dafb;
+            background-color: #c6e2e9;
             color: #282c34;
             border: none;
             font-size: 1.4em;
@@ -53,14 +53,14 @@ permalink: /calculator/
             transition: background-color 0.2s ease;
         }
         .button:hover {
-            background-color: #21a1f1;
+            background-color: #ffcaaf;
         }
         .equal {
-            background-color: #38a169;
+            background-color: #dab894;
             color: white;
         }
         .equal:hover {
-            background-color: #2f855a;
+            background-color: #f1ffc4;
         }
     </style>
 </head>
@@ -90,9 +90,9 @@ permalink: /calculator/
         </div>
     </div>
 
-    <script>
+<script>
         const display = document.getElementById('display');
-
+        
         function appendToDisplay(value) {
             if (display.innerText === '0') {
                 display.innerText = value;
