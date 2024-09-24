@@ -4,41 +4,24 @@ title: Calculator
 description: Calculator
 permalink: /calculator/
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="calculator">
-        <h1>Calculator</h1>
-        <input type="text" id="result" disabled>
-        <div class="buttons">
-            <button onclick="clearResult()">C</button>
-            <button onclick="appendToResult('/')">/</button>
-            <button onclick="appendToResult('*')">*</button>
-            <button onclick="appendToResult('-')">-</button>
-            <button onclick="appendToResult('+')">+</button>
-            <button onclick="calculate()">=</button>
-            <button onclick="square()">x²</button>
-            <button onclick="squareRoot()">√</button>
-            <button onclick="logarithm()">log</button>
-        </div>
-        <div class="number-pad">
-            <button onclick="appendToResult(7)">7</button>
-            <button onclick="appendToResult(8)">8</button>
-            <button onclick="appendToResult(9)">9</button>
-            <button onclick="appendToResult(4)">4</button>
-            <button onclick="appendToResult(5)">5</button>
-            <button onclick="appendToResult(6)">6</button>
-            <button onclick="appendToResult(1)">1</button>
-            <button onclick="appendToResult(2)">2</button>
-            <button onclick="appendToResult(3)">3</button>
-            <button onclick="appendToResult(0)">0</button>
-        </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+    <title>Aesthetic Calculator</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            width: 350px;
+            padding: 20px;
+            background-color: #ffffff
