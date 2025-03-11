@@ -10,6 +10,18 @@ hide: true
 <body style="background-color: #f8d9ec;">
 
 
+<div>
+<button class="pink-button">Categories</button>
+<div>
+
+
+<h1 style= "color:HotPink;">Final</h1>
+
+
+<a href="{{site.baseurl}}/finaltri2" class="pink-button">Retrospective Tri 2</a> <br>
+
+
+
 <body>
 <h1 style= "color:HotPink;">Fitness Regimen</h1>
 
@@ -17,11 +29,9 @@ hide: true
     <img alt= "Working Out" src="/rowan_2025/images/exercise.jpg" style="max-width: 100%; height: auto;">
 </div>
 
-<div>
-<button class="pink-button">Categories</button>
-<div>
 
 <!--ab workout-->
+
 <a href="{{site.baseurl}}/abs" class="pink-button">Ab Routine</a> <br>
 
 <!--leg workout-->
