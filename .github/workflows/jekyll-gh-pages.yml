@@ -33,8 +33,11 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Debug _site directory
+        run: ls -la ./_site    
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1 # Updated to a specific version
+     
 
   deploy:
     environment:
@@ -45,4 +48,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v2.1.0
